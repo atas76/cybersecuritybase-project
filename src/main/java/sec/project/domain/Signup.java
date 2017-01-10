@@ -1,6 +1,7 @@
 package sec.project.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.Id;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
 @Entity
@@ -8,6 +9,8 @@ public class Signup extends AbstractPersistable<Long> {
 
     private String name;
     private String address;
+    @Id
+    private Long id;
 
     public Signup() {
         super();
@@ -33,6 +36,14 @@ public class Signup extends AbstractPersistable<Long> {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
 }

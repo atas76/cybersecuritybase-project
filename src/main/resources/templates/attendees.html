@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+    <head lang="en">
+        <meta charset="UTF-8" />
+        <title>Attendees</title>
+    </head>
+    <body>
+
+        <h2>Attendees</h2>
+
+        <ul id="attendees">
+        </ul>
+
+        <!-- the javascript has been embedded to the same site -->
+        <script th:inline="javascript">
+            // The URL to the application server that holds the tasks.
+            
+            // var url = /*[[@{/tasks}]]*/ null;
+
+            var url = [[@{/attendeesAPI}]];
+            
+            function loadAttendees() {
+                
+                // alert("hello world! it'd be nice if i would load the tasks from the server and show them on this page.");
+                
+                var http = new XMLHttpRequest();
+                http.open("GET", url, true);
+                http.setRequestHeader("Content-type", "application/json");
+                
+                http.onreadystatechange = function () {
+                    if (http.readyState === 4) {
+                        if (http.status === 200) {
+                            console.log(http.responseText);
+                            addAttendeesToList(JSON.parse(http.responseText));
+                        }
+                    }
+                }
+                
+                http.send(null);
+            }
+
+            function addAttendeesToList(attendees) {
+                for (i in attendees) {
+                    addAttendeeToList(attendees[i]);
+                }
+            }
+
+            function addAttendeeToList(attendee) {
+                var liElement = document.createElement("li");
+                liElement.appendChild(document.createTextNode(attendee.name + ", " + attendee.address));
+                document.querySelector("#attendees").appendChild(liElement);
+            }
+
+            window.onload = function () {
+                loadAttendees();
+            };
+        </script>
+    </body>
+</html>
