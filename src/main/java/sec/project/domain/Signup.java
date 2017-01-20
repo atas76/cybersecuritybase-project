@@ -1,6 +1,8 @@
 package sec.project.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import org.springframework.data.jpa.domain.AbstractPersistable;
 
@@ -10,6 +12,7 @@ public class Signup extends AbstractPersistable<Long> {
     private String name;
     private String address;
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     public Signup() {
